@@ -1,0 +1,267 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Dev Classes — Topic-wise Quiz App (Frontend)",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Build the core frontend app structure for “Dev Classes” with clear Teacher and Student entry points and non-dead-end navigation.",
+      "acceptanceCriteria": [
+        "App title/branding reads \"Dev Classes\" in the UI.",
+        "There are clear entry points to Teacher flow and Student flow (e.g., separate pages or a role-based dashboard).",
+        "Navigation is functional and does not dead-end (all primary actions lead to a screen)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the main app shell for “Dev Classes” including top-level navigation, landing/entry view, and screen switching for Teacher and Student journeys (no dead ends)."
+        },
+        {
+          "path": "frontend/src/components/layout/AppLayout.tsx",
+          "operation": "create",
+          "description": "Add a shared layout component (header + main container) that displays “Dev Classes” branding and hosts navigation used across all primary screens."
+        },
+        {
+          "path": "frontend/src/components/nav/PrimaryNav.tsx",
+          "operation": "create",
+          "description": "Implement primary navigation with clear links/actions to Teacher flow and Student flow, wired into the screen switching in frontend/src/App.tsx."
+        },
+        {
+          "path": "frontend/src/screens/LandingScreen.tsx",
+          "operation": "create",
+          "description": "Create a landing screen with two clear entry actions (Teacher / Student) and brief English explanation of each journey, wired into frontend/src/App.tsx."
+        },
+        {
+          "path": "frontend/src/screens/Teacher/TeacherHomeScreen.tsx",
+          "operation": "create",
+          "description": "Create the Teacher home screen container that links to topic/quiz/question management screens, wired into frontend/src/App.tsx so Teacher actions always lead to a screen."
+        },
+        {
+          "path": "frontend/src/screens/Student/StudentHomeScreen.tsx",
+          "operation": "create",
+          "description": "Create the Student home screen container that links to topic browsing and quiz taking, wired into frontend/src/App.tsx so Student actions always lead to a screen."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Add Internet Identity login and a simple Teacher vs Student role model with UI gating (frontend side).",
+      "acceptanceCriteria": [
+        "Users can sign in and sign out using Internet Identity.",
+        "A user can be designated as Teacher or Student (initially via a simple in-app admin/teacher claim flow).",
+        "Teacher-only screens/actions are blocked for Students (UI + backend enforcement)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/auth/LoginButton.tsx",
+          "operation": "create",
+          "description": "Use the authorization component’s frontend login patterns to implement an Internet Identity login/logout button; clear cached React Query data on logout. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useCurrentUser.ts",
+          "operation": "create",
+          "description": "Create a hook that uses the backend actor to fetch current user profile + role (e.g., getCallerUserProfile, getCallerUserRole) and exposes convenient flags (isAuthenticated/isTeacher/isStudent). Verify the authorization component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/ProfileSetupModal.tsx",
+          "operation": "create",
+          "description": "Use the authorization component’s user profile setup guidance to prompt for a display name on first login and save it via saveCallerUserProfile; avoid showing principal IDs in the UI. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/RoleClaimScreen.tsx",
+          "operation": "create",
+          "description": "Implement a simple in-app role claim/selection UI (Teacher vs Student) that calls the backend role assignment capability (assignCallerUserRole) and stores/reflects the selected role in the UI. Verify the authorization component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/TeacherOnly.tsx",
+          "operation": "create",
+          "description": "Create a guard wrapper that blocks Teacher-only screens/actions for Students/Guests and renders an access-denied message with a way to navigate back. Verify the authorization component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire authentication/authorization flow into app navigation: require login before showing application data, show ProfileSetupModal when appropriate, route users to RoleClaimScreen when role is not set, and wrap Teacher screens with TeacherOnly. Verify the authorization component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Implement Teacher UI screens to create/manage Topics, create Quizzes under Topics, and add/edit/remove MCQ Questions with validation.",
+      "acceptanceCriteria": [
+        "Teacher can create a Topic, then create a Quiz under that Topic, then add Questions to that Quiz.",
+        "Teacher can edit and delete Topics/Quizzes/Questions from the UI.",
+        "Validation prevents saving a question without text, without options, or without exactly one correct option."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/screens/Teacher/ManageTopicsScreen.tsx",
+          "operation": "create",
+          "description": "Create Teacher screen to list and create Topics using backend capabilities (getAllTopics, addTopic), and provide navigation into Topic details/quizzes."
+        },
+        {
+          "path": "frontend/src/screens/Teacher/ManageQuizzesScreen.tsx",
+          "operation": "create",
+          "description": "Create Teacher screen to list quizzes by selected Topic and create quizzes under that Topic using backend capabilities (getQuizzesByTopic, createQuiz)."
+        },
+        {
+          "path": "frontend/src/screens/Teacher/ManageQuestionsScreen.tsx",
+          "operation": "create",
+          "description": "Create Teacher screen to load a Quiz and manage its Questions (add/edit/remove UI). Use backend capability addQuestionToQuiz for adding; for edit/delete actions, wire UI to available backend capability if present, otherwise disable with clear messaging."
+        },
+        {
+          "path": "frontend/src/components/teacher/QuestionEditor.tsx",
+          "operation": "create",
+          "description": "Build a reusable MCQ question editor form supporting 2–6 options, single correct option selection, and validation; use shadcn-ui patterns/components (e.g., inputs, buttons, cards) for consistent form styling. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useTeacherData.ts",
+          "operation": "create",
+          "description": "Add React Query hooks for Teacher data reads/mutations (topics/quizzes/quiz loading) to support the management screens and keep UI responsive with loading/error states."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire Teacher management screens into the Teacher flow navigation (from TeacherHomeScreen) and ensure screens are wrapped with TeacherOnly so Students cannot access Teacher-only UI."
+        },
+        {
+          "path": "frontend/src/components/ui/button.tsx",
+          "operation": "create",
+          "description": "Add a shadcn-ui Button component wrapper for consistent buttons across Teacher forms and actions. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/ui/card.tsx",
+          "operation": "create",
+          "description": "Add a shadcn-ui Card component wrapper for consistent section/layout styling across Teacher management screens. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/ui/input.tsx",
+          "operation": "create",
+          "description": "Add a shadcn-ui Input component wrapper for consistent text inputs across Teacher forms. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/ui/textarea.tsx",
+          "operation": "create",
+          "description": "Add a shadcn-ui Textarea component wrapper for question text editing. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Implement Student UI to browse Topics/Quizzes, take a quiz, submit answers, and view results with per-question feedback.",
+      "acceptanceCriteria": [
+        "Student can select a Topic and then a Quiz to start.",
+        "Student can submit a completed quiz and receive a computed score.",
+        "Result view shows total questions, correct count, and per-question correctness feedback."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/screens/Student/BrowseTopicsScreen.tsx",
+          "operation": "create",
+          "description": "Create Student screen to list Topics (getAllTopics) and navigate into quizzes for a selected topic."
+        },
+        {
+          "path": "frontend/src/screens/Student/BrowseQuizzesScreen.tsx",
+          "operation": "create",
+          "description": "Create Student screen to list Quizzes for a selected Topic (getQuizzesByTopic) and navigate to the quiz-taking screen."
+        },
+        {
+          "path": "frontend/src/screens/Student/TakeQuizScreen.tsx",
+          "operation": "create",
+          "description": "Create quiz-taking UI that loads the selected quiz (getQuiz), renders questions with multiple-choice selection, and collects answers (question-by-question or single form within the same screen)."
+        },
+        {
+          "path": "frontend/src/screens/Student/QuizResultScreen.tsx",
+          "operation": "create",
+          "description": "Create result screen that displays score + total questions and per-question review (chosen vs correct) after submission; rely on loaded quiz data for correct answers and on submitted answers for chosen answers."
+        },
+        {
+          "path": "frontend/src/hooks/useStudentQuiz.ts",
+          "operation": "create",
+          "description": "Add hooks to load quiz/topic data and to submit attempts (submitAttempt) with robust loading/error handling and minimal caching pitfalls on logout."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire Student browsing, taking, and result screens into the Student flow navigation from StudentHomeScreen, ensuring the student journey is fully navigable without dead ends."
+        },
+        {
+          "path": "frontend/src/components/student/QuestionRenderer.tsx",
+          "operation": "create",
+          "description": "Create a reusable question renderer for multiple-choice selection; use shadcn-ui patterns/components (buttons/cards/inputs where appropriate) for consistent interaction and layout. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Apply a cohesive, distinctive “Dev Classes” visual theme across the app (avoid blue/purple-dominant palette).",
+      "acceptanceCriteria": [
+        "All primary pages share a consistent layout and component styling.",
+        "Primary UI palette is not blue/purple-dominant.",
+        "App feels like a unified product (no mismatched default styles)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Create global styles and Tailwind base layers with a warm, classroom-inspired palette (avoid blue/purple dominance) and consistent typography/spacing defaults used across the app."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Adjust theme tokens (via CSS variables usage) and ensure Tailwind configuration supports the chosen warm palette and consistent component styling."
+        },
+        {
+          "path": "frontend/src/components/layout/AppLayout.tsx",
+          "operation": "modify",
+          "description": "Apply consistent layout styling (header, page container, section spacing) so all pages share a unified structure and look."
+        },
+        {
+          "path": "frontend/src/components/ui/button.tsx",
+          "operation": "modify",
+          "description": "Align button variants to the “Dev Classes” theme (warm primary, accessible contrast, consistent sizing). Verify the shadcn-ui component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/ui/card.tsx",
+          "operation": "modify",
+          "description": "Align card styling to the theme (borders, background, shadows, spacing) for consistent surface presentation. Verify the shadcn-ui component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/ui/input.tsx",
+          "operation": "modify",
+          "description": "Align input styling to the theme (focus rings, borders, spacing) to avoid mismatched defaults. Verify the shadcn-ui component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Add the required generated static images under frontend/public/assets/generated and reference them directly in the UI.",
+      "acceptanceCriteria": [
+        "Generated images exist under frontend/public/assets/generated and are referenced directly by the frontend.",
+        "Images render correctly in the UI without fetching through the backend."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/dev-classes-logo.dim_512x512.png",
+          "operation": "create",
+          "description": "Add the generated image asset file: frontend/public/assets/generated/dev-classes-logo.dim_512x512.png and ensure it is committed as a static public asset."
+        },
+        {
+          "path": "frontend/public/assets/generated/dev-classes-hero-bg.dim_1600x600.png",
+          "operation": "create",
+          "description": "Add the generated image asset file: frontend/public/assets/generated/dev-classes-hero-bg.dim_1600x600.png and ensure it is committed as a static public asset."
+        },
+        {
+          "path": "frontend/src/components/layout/AppLayout.tsx",
+          "operation": "modify",
+          "description": "Reference and render the static logo image from frontend/public/assets/generated/dev-classes-logo.dim_512x512.png in the header/branding area (direct static asset usage)."
+        },
+        {
+          "path": "frontend/src/screens/LandingScreen.tsx",
+          "operation": "modify",
+          "description": "Reference and render the hero background image from frontend/public/assets/generated/dev-classes-hero-bg.dim_1600x600.png in the landing/entry area (direct static asset usage)."
+        }
+      ]
+    }
+  ]
+}

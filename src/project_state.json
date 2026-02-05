@@ -1,0 +1,87 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Build a quiz app named \"Dev Classes\" for a teacher to conduct topic-wise tests: teacher can create questions and students can take quizzes/tests.",
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Minimal modern wordmark logo reading \"Dev Classes\" on transparent background (dev-classes-logo.dim_512x512.png)\n- Warm, classroom-inspired abstract header background with subtle educational motifs (dev-classes-hero-bg.dim_1600x600.png)",
+  "existing_features": [
+    {
+      "id": "feature-create-the-core-app-structure-and-navigation-for-a-quiz-app-named-dev-classes-with-two-primary-user-journeys-1-teacher-creates-and-manages-topic-wise-quizzes-and-questions-and-2-student-selects-a-topic-quiz-and-takes-a-test",
+      "title": "Create the core app structure and navigation for a quiz app named \"Dev Classes\" with two primary user journeys: (1) teacher creates and manages topic-wise quizzes and questions, and (2) student selects a topic/quiz and takes a test.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-internet-identity-login-and-a-simple-role-model-teacher-vs-student-so-the-same-app-can-support-quiz-creation-teacher-only-and-quiz-taking-student",
+      "title": "Implement Internet Identity login and a simple role model (Teacher vs Student) so the same app can support quiz creation (teacher-only) and quiz taking (student).",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-teacher-ui-provide-screens-to-create-and-manage-topics-create-quizzes-under-a-topic-and-add-edit-remove-multiple-choice-questions-with-2-6-options-and-a-single-correct-option",
+      "title": "Teacher UI: Provide screens to create and manage Topics, create Quizzes under a Topic, and add/edit/remove multiple-choice Questions (with 2–6 options and a single correct option).",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-student-ui-provide-a-flow-to-browse-topics-and-quizzes-take-a-quiz-question-by-question-or-as-a-single-form-submit-answers-and-view-the-result-score-and-basic-review-of-correct-vs-chosen-answers",
+      "title": "Student UI: Provide a flow to browse Topics and Quizzes, take a quiz question-by-question or as a single form, submit answers, and view the result (score and basic review of correct vs chosen answers).",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-frontend-add-a-coherent-distinctive-visual-theme-for-dev-classes-and-apply-it-consistently-across-pages-typography-spacing-buttons-cards-and-form-styles-avoid-blue-purple-as-the-primary-palette",
+      "title": "Frontend: Add a coherent, distinctive visual theme for \"Dev Classes\" and apply it consistently across pages (typography, spacing, buttons, cards, and form styles). Avoid blue/purple as the primary palette.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-the-required-generated-static-images-into-the-app-and-use-them-in-the-ui-e-g-header-landing-area-by-serving-them-from-frontend-public-assets-generated-no-backend-image-routing",
+      "title": "Add the required generated static images into the app and use them in the UI (e.g., header/landing area) by serving them from frontend/public/assets/generated (no backend image routing).",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create \"Dev Classes\" quiz app for topic-wise tests (teacher creates questions; students take tests).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Backend: Add persistent data models and CRUD APIs to support topic-wise quizzes: Topics, Quizzes (linked to a Topic), Questions (linked to a Quiz), and multiple-choice options with a correct answer.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Backend: Store quiz attempts/results per student (by principal) for each quiz, and expose APIs for (a) a student to view their own past attempts and (b) a teacher to view aggregated results per quiz (e.g., list of attempts).",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Dev Classes",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

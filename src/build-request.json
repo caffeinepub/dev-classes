@@ -1,0 +1,182 @@
+{
+  "kind": "build_request",
+  "title": "Dev Classes: Topic-wise Quiz App (Teacher creates quizzes, students take tests)",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create the core app structure and navigation for a quiz app named \"Dev Classes\" with two primary user journeys: (1) teacher creates and manages topic-wise quizzes and questions, and (2) student selects a topic/quiz and takes a test.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Main ek teacher hu ek quiz app banana chahta hu  taki main topic test le sku mujhe dev classes ke naam se app banana hai"
+        ]
+      },
+      "acceptanceCriteria": [
+        "App title/branding reads \"Dev Classes\" in the UI.",
+        "There are clear entry points to Teacher flow and Student flow (e.g., separate pages or a role-based dashboard).",
+        "Navigation is functional and does not dead-end (all primary actions lead to a screen)."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement Internet Identity login and a simple role model (Teacher vs Student) so the same app can support quiz creation (teacher-only) and quiz taking (student).",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Main ek teacher hu ek quiz app banana chahta hu  taki main topic test le sku"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Users can sign in and sign out using Internet Identity.",
+        "A user can be designated as Teacher or Student (initially via a simple in-app admin/teacher claim flow).",
+        "Teacher-only screens/actions are blocked for Students (UI + backend enforcement)."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Backend: Add persistent data models and CRUD APIs to support topic-wise quizzes: Topics, Quizzes (linked to a Topic), Questions (linked to a Quiz), and multiple-choice options with a correct answer.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "topic test le sku"
+        ]
+      },
+      "acceptanceCriteria": [
+        "APIs exist to create/list/update/delete Topics, Quizzes, and Questions.",
+        "A Quiz can be listed by Topic and loaded with its Questions.",
+        "Only Teachers can create/update/delete Topics/Quizzes/Questions."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Teacher UI: Provide screens to create and manage Topics, create Quizzes under a Topic, and add/edit/remove multiple-choice Questions (with 2–6 options and a single correct option).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "taki main topic test le sku"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Teacher can create a Topic, then create a Quiz under that Topic, then add Questions to that Quiz.",
+        "Teacher can edit and delete Topics/Quizzes/Questions from the UI.",
+        "Validation prevents saving a question without text, without options, or without exactly one correct option."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Student UI: Provide a flow to browse Topics and Quizzes, take a quiz question-by-question or as a single form, submit answers, and view the result (score and basic review of correct vs chosen answers).",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "quiz app ... topic test"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Student can select a Topic and then a Quiz to start.",
+        "Student can submit a completed quiz and receive a computed score.",
+        "Result view shows total questions, correct count, and per-question correctness feedback."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Backend: Store quiz attempts/results per student (by principal) for each quiz, and expose APIs for (a) a student to view their own past attempts and (b) a teacher to view aggregated results per quiz (e.g., list of attempts).",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "topic test le sku"
+        ]
+      },
+      "acceptanceCriteria": [
+        "After submission, an Attempt record is persisted containing quizId, student principal, timestamp, answers, and score.",
+        "Student can list only their own attempts.",
+        "Teacher can list attempts for quizzes they manage (or all quizzes if teacher is global)."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Frontend: Add a coherent, distinctive visual theme for \"Dev Classes\" and apply it consistently across pages (typography, spacing, buttons, cards, and form styles). Avoid blue/purple as the primary palette.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "mujhe dev classes ke naam se app banana hai"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All primary pages share a consistent layout and component styling.",
+        "Primary UI palette is not blue/purple-dominant.",
+        "App feels like a unified product (no mismatched default styles)."
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Add the required generated static images into the app and use them in the UI (e.g., header/landing area) by serving them from frontend/public/assets/generated (no backend image routing).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "mujhe dev classes ke naam se app banana hai"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Generated images exist under frontend/public/assets/generated and are referenced directly by the frontend.",
+        "Images render correctly in the UI without fetching through the backend."
+      ]
+    }
+  ],
+  "constraints": [
+    "Use English for all user-facing UI text.",
+    "Backend must remain a single Motoko actor in backend/main.mo; only add migration code if an upgrade requires it.",
+    "Do not edit files under frontend paths listed as immutable in SYSTEM_CONTEXT; compose UI using provided components instead."
+  ],
+  "nonGoals": [
+    "Timed exams, proctoring, or anti-cheating features.",
+    "Question types beyond multiple-choice (e.g., essays, coding questions).",
+    "Real-time multiplayer/live quiz sessions.",
+    "Third-party authentication providers other than Internet Identity."
+  ],
+  "imageRequirements": {
+    "required": [
+      "Minimal modern wordmark logo reading \"Dev Classes\" on transparent background (dev-classes-logo.dim_512x512.png)",
+      "Warm, classroom-inspired abstract header background with subtle educational motifs (dev-classes-hero-bg.dim_1600x600.png)"
+    ],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [
+      "Build a quiz app named \"Dev Classes\" for topic-wise tests where a teacher creates questions and students take quizzes."
+    ],
+    "goalsToRemove": [],
+    "preferencesToAdd": [
+      "Use English for user-facing text."
+    ],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

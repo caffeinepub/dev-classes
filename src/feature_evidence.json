@@ -1,0 +1,139 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-create-the-core-app-structure-and-navigation-for-a-quiz-app-named-dev-classes-with-two-primary-user-journeys-1-teacher-creates-and-manages-topic-wise-quizzes-and-questions-and-2-student-selects-a-topic-quiz-and-takes-a-test",
+      "featureTitle": "Create the core app structure and navigation for a quiz app named \"Dev Classes\" with two primary user journeys: (1) teacher creates and manages topic-wise quizzes and questions, and (2) student selects a topic/quiz and takes a test.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/layout/AppLayout.tsx",
+        "frontend/src/screens/LandingScreen.tsx",
+        "frontend/src/screens/Student/StudentHomeScreen.tsx",
+        "frontend/src/screens/Teacher/TeacherHomeScreen.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-internet-identity-login-and-a-simple-role-model-teacher-vs-student-so-the-same-app-can-support-quiz-creation-teacher-only-and-quiz-taking-student",
+      "featureTitle": "Implement Internet Identity login and a simple role model (Teacher vs Student) so the same app can support quiz creation (teacher-only) and quiz taking (student).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/auth/ProfileSetupModal.tsx",
+        "frontend/src/components/auth/RoleClaimScreen.tsx",
+        "frontend/src/components/auth/TeacherOnly.tsx",
+        "frontend/src/hooks/useCurrentUser.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-teacher-ui-provide-screens-to-create-and-manage-topics-create-quizzes-under-a-topic-and-add-edit-remove-multiple-choice-questions-with-2-6-options-and-a-single-correct-option",
+      "featureTitle": "Teacher UI: Provide screens to create and manage Topics, create Quizzes under a Topic, and add/edit/remove multiple-choice Questions (with 2–6 options and a single correct option).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/teacher/QuestionEditor.tsx",
+        "frontend/src/screens/Teacher/ManageQuestionsScreen.tsx",
+        "frontend/src/screens/Teacher/ManageQuizzesScreen.tsx",
+        "frontend/src/screens/Teacher/ManageTopicsScreen.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-student-ui-provide-a-flow-to-browse-topics-and-quizzes-take-a-quiz-question-by-question-or-as-a-single-form-submit-answers-and-view-the-result-score-and-basic-review-of-correct-vs-chosen-answers",
+      "featureTitle": "Student UI: Provide a flow to browse Topics and Quizzes, take a quiz question-by-question or as a single form, submit answers, and view the result (score and basic review of correct vs chosen answers).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/student/QuestionRenderer.tsx",
+        "frontend/src/screens/Student/BrowseQuizzesScreen.tsx",
+        "frontend/src/screens/Student/BrowseTopicsScreen.tsx",
+        "frontend/src/screens/Student/QuizResultScreen.tsx",
+        "frontend/src/screens/Student/TakeQuizScreen.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-frontend-add-a-coherent-distinctive-visual-theme-for-dev-classes-and-apply-it-consistently-across-pages-typography-spacing-buttons-cards-and-form-styles-avoid-blue-purple-as-the-primary-palette",
+      "featureTitle": "Frontend: Add a coherent, distinctive visual theme for \"Dev Classes\" and apply it consistently across pages (typography, spacing, buttons, cards, and form styles). Avoid blue/purple as the primary palette.",
+      "files": [
+        "frontend/src/components/layout/AppLayout.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-the-required-generated-static-images-into-the-app-and-use-them-in-the-ui-e-g-header-landing-area-by-serving-them-from-frontend-public-assets-generated-no-backend-image-routing",
+      "featureTitle": "Add the required generated static images into the app and use them in the UI (e.g., header/landing area) by serving them from frontend/public/assets/generated (no backend image routing).",
+      "files": [
+        "frontend/src/components/layout/AppLayout.tsx",
+        "frontend/src/screens/LandingScreen.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "frontend/src/App.tsx": "Main application component managing screen navigation, authentication flow, and routing between teacher/student journeys with proper state management for quiz taking and results.",
+  "frontend/src/hooks/useQueries.ts": "React Query hooks for all backend operations including topics, quizzes, questions, attempts, and user profile management with proper cache invalidation.",
+  "frontend/src/hooks/useCurrentUser.ts": "Custom hook that combines Internet Identity and user profile/role queries to provide convenient authentication and authorization state.",
+  "frontend/src/components/layout/AppLayout.tsx": "Shared layout component with header displaying Dev Classes branding, logo, user profile, navigation, and footer with attribution.",
+  "frontend/src/components/auth/ProfileSetupModal.tsx": "Modal dialog for first-time users to enter their display name after Internet Identity login.",
+  "frontend/src/components/auth/RoleClaimScreen.tsx": "Role selection screen allowing authenticated users to choose between Teacher and Student roles using the UserRole enum from backend types.",
+  "frontend/src/components/auth/TeacherOnly.tsx": "Authorization guard component that restricts teacher-only screens and shows access denied message to non-teachers.",
+  "frontend/src/screens/LandingScreen.tsx": "Landing page with hero section, feature cards for teachers and students, and call-to-action buttons with background image.",
+  "frontend/src/screens/Teacher/TeacherHomeScreen.tsx": "Teacher dashboard with navigation cards to manage topics and browse content, wrapped in TeacherOnly guard.",
+  "frontend/src/screens/Teacher/ManageTopicsScreen.tsx": "Teacher screen to create and list topics with dialog for adding new topics and navigation to quiz management.",
+  "frontend/src/screens/Teacher/ManageQuizzesScreen.tsx": "Teacher screen to create and list quizzes within a selected topic with navigation to question management.",
+  "frontend/src/screens/Teacher/ManageQuestionsScreen.tsx": "Teacher screen to view and add multiple-choice questions to a quiz with question editor dialog.",
+  "frontend/src/components/teacher/QuestionEditor.tsx": "Reusable form component for creating multiple-choice questions with 2-6 options, validation, and correct answer selection.",
+  "frontend/src/screens/Student/StudentHomeScreen.tsx": "Student dashboard with cards to browse quizzes and view progress information.",
+  "frontend/src/screens/Student/BrowseTopicsScreen.tsx": "Student screen to browse and select available topics to view their quizzes.",
+  "frontend/src/screens/Student/BrowseQuizzesScreen.tsx": "Student screen to browse quizzes within a selected topic and start taking them.",
+  "frontend/src/screens/Student/TakeQuizScreen.tsx": "Quiz-taking interface with progress tracking, question rendering, and submission functionality.",
+  "frontend/src/components/student/QuestionRenderer.tsx": "Reusable component to render multiple-choice questions with radio buttons and optional correct answer highlighting for review.",
+  "frontend/src/screens/Student/QuizResultScreen.tsx": "Results screen showing score, percentage, statistics, and detailed answer review with correct/incorrect highlighting.",
+  "frontend/src/index.css": "Global styles with warm, classroom-inspired OKLCH color palette (avoiding blue/purple dominance) and Inter font family for consistent typography."
+}

@@ -1,0 +1,85 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-05T20:49:23.408Z",
+  "summary": "Diff adds a full React frontend with Internet Identity auth hook, role-claim/profile setup flow, Teacher/Student navigation screens, quiz taking + result review UI, a new Motoko backend actor with topic/quiz/question/attempt models, and a non-blue/purple Tailwind theme. Several CRUD + attempt/reporting requirements are only partially evidenced in the truncated backend/UI.",
+  "missing_requirements": [
+    {
+      "id": "REQ-3",
+      "requirement": "APIs exist to create/list/update/delete Topics, Quizzes, and Questions.",
+      "reason": "The diff shows create/list for topics and quizzes and adding questions, but does not show any update/delete APIs for topics/quizzes/questions (and backend is truncated, so cannot confirm).",
+      "evidence": [
+        "backend/main.mo (shows addTopic/getTopic/getAllTopics/createQuiz/getQuiz/getQuizzesByTopic; no update/delete shown)",
+        "frontend/src/hooks/useQueries.ts (shows useAddTopic/useCreateQuiz/useAddQuestionToQuiz; no update/delete hooks shown)"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "Teacher can edit and delete Topics/Quizzes/Questions from the UI.",
+      "reason": "Teacher flows/screens are referenced, but the provided diff evidence only shows adding topics/quizzes/questions; no edit/delete UI actions are shown in the visible files (teacher screens are not included in the excerpt).",
+      "evidence": [
+        "frontend/src/App.tsx (routes to ManageTopics/ManageQuizzes/ManageQuestions)",
+        "frontend/src/hooks/useQueries.ts (no edit/delete mutations shown)"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "requirement": "Attempt record is persisted containing quizId, student principal, timestamp, answers, and score; student can list own attempts; teacher can list attempts for quizzes they manage (aggregated results).",
+      "reason": "Attempt type shown lacks a timestamp field, and only student attempt submission + 'getCallerAttemptsByQuiz' hook is evidenced; teacher aggregated results APIs/UI are not evidenced in the diff excerpt.",
+      "evidence": [
+        "backend/main.mo (Attempt type includes user/quizId/answers/score; no timestamp shown)",
+        "frontend/src/hooks/useQueries.ts (useSubmitAttempt, useGetCallerAttemptsByQuiz; no teacher aggregated attempts query shown)"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Access-control initialization via a secret admin token passed through a URL parameter (caffeineAdminToken) and calling a private-ish _initializeAccessControlWithSecret method.",
+      "reason": "BuildRequest requires II login + role model, but does not request URL-secret-based admin bootstrapping/initialization logic.",
+      "evidence": [
+        "frontend/src/hooks/useActor.ts (getSecretParameter('caffeineAdminToken'); actor._initializeAccessControlWithSecret(adminToken))"
+      ]
+    },
+    {
+      "description": "Footer branding text/link 'Built with ❤️ using caffeine.ai'.",
+      "reason": "Not requested in requirements and adds extra user-facing branding content (including a heart symbol).",
+      "evidence": [
+        "frontend/src/components/layout/AppLayout.tsx (footer text/link)"
+      ]
+    }
+  ],
+  "confidence": 0.68,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/auth/ProfileSetupModal.tsx",
+    "frontend/src/components/auth/RoleClaimScreen.tsx",
+    "frontend/src/components/auth/TeacherOnly.tsx",
+    "frontend/src/components/layout/AppLayout.tsx",
+    "frontend/src/components/student/QuestionRenderer.tsx",
+    "frontend/src/components/teacher/QuestionEditor.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useCurrentUser.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/screens/LandingScreen.tsx",
+    "frontend/src/screens/Student/BrowseQuizzesScreen.tsx",
+    "frontend/src/screens/Student/BrowseTopicsScreen.tsx",
+    "frontend/src/screens/Student/QuizResultScreen.tsx",
+    "frontend/src/screens/Student/StudentHomeScreen.tsx",
+    "frontend/src/screens/Student/TakeQuizScreen.tsx",
+    "frontend/src/screens/Teacher/ManageQuestionsScreen.tsx",
+    "frontend/src/screens/Teacher/ManageQuizzesScreen.tsx",
+    "frontend/src/screens/Teacher/ManageTopicsScreen.tsx",
+    "frontend/src/screens/Teacher/TeacherHomeScreen.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}
